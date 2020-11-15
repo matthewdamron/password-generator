@@ -29,7 +29,7 @@ THEN the password is either displayed in an alert or written to the page<br>
 
 ## Screenshot
 
-![Demo](assets\images\password-generator-screenshot.png)
+![Demo](assets/images/password-generator-screenshot.png)
 
 ## Credits
 
