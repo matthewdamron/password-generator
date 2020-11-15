@@ -30,11 +30,11 @@ var passwordLength;
 var character = "";
 var possibilities = "";
 
-// function to add at lease 1 criteria char
+// function to add at lease 1 criteria char to passwardArray and add to the possibilities for passwordOverflow
 var addCriteriaChar = function(criteriaOption) {
   // add one to the criteriaTotal
   criteriaTotal++;
-  // add criteria to possibilities
+  // add criteriaOption to possibilities
   possibilities = possibilities.concat(criteriaOption);
   // random char from the list of criteriaOptoin
   character = criteriaOption.charAt(Math.floor(Math.random() * criteriaOption.length));
@@ -42,39 +42,22 @@ var addCriteriaChar = function(criteriaOption) {
   passwordArray.push(character);
 }
 
-// function to add rest of the char to password length
+// function to add the rest of the char to passwordArray minus the single char
 var addOverflowChar = function() {
-  // string concat all the possibilities together
-  // possibilities = lowercase.concat(uppercase, numeric, special);
-  // get the number of char left after adding criteria char
+  // get the number of char left after adding criteriaOption char
   var passwordOverflow = passwordLength - criteriaTotal;
   // for loop to random pick char from the possibilities
   for (var i = 0; i < passwordOverflow; i++) {
     character = possibilities.charAt(Math.floor(Math.random() * possibilities.length));
-    // push char to password array
+    // push char to passwordArray
     passwordArray.push(character);
   }
+  debugger;
+  // randomize the passwordArray
+  passwordArray.sort(() => Math.random() - 0.5);
+  // convert passwordArray into a string
+  passwordText = passwordArray.join("");
 }
-
-// var suffle = function (array) {
-//   var currentIndex = array.length, temporaryValue, randomIndex;
-
-//   // While there remain elements to shuffle...
-//   while (0 !== currentIndex) {
-
-//     // Pick a remaining element...
-//     randomIndex = Math.floor(Math.random() * currentIndex);
-//     currentIndex -= 1;
-
-//     // And swap it with the current element.
-//     temporaryValue = array[currentIndex];
-//     array[currentIndex] = array[randomIndex];
-//     array[randomIndex] = temporaryValue;
-//   }
-
-//   return array;
-// }
-
 
 var generatePassword = function() {
   // empty the password variables
@@ -100,19 +83,15 @@ var generatePassword = function() {
     var confirmLower = window.confirm("Would you like your password to include 'Lowercase' characters?");
     // if lowercase true
     if (confirmLower) {
-      // plus one to criteriaTotal
-      // criteriaTotal++;
-      // add 1 char to my array for password
-      addCriteriaChar(lowercase, criteriaTotal);
+      // function for criteriaOption
+      addCriteriaChar(lowercase);
     }
 
     // ask if they would like uppercase char
     var confirmUpper = window.confirm("Would you like your password to include 'Uppercase' characters?");
     // if uppercase true
     if (confirmUpper) {
-      // plus one to criteriaTotal
-      // criteriaTotal++;
-      // add 1 char to my array for password
+      // function for criteriaOption
       addCriteriaChar(uppercase);
     }
 
@@ -120,9 +99,7 @@ var generatePassword = function() {
     var confirmNumeric = window.confirm("Would you like your password to include 'Numeric' characters?");
     // if numeric true
     if (confirmNumeric) {
-      // plus one to criteriaTotal
-      // criteriaTotal++;
-      // add 1 char to my array for password
+      // function for criteriaOption
       addCriteriaChar(numeric);
     }
 
@@ -130,32 +107,25 @@ var generatePassword = function() {
     var confirmSpecial = window.confirm("Would you like your password to include 'Special' characters?");
     // if special true
     if (confirmSpecial) {
-      // plus one to criteriaTotal
-      // criteriaTotal++;
+      // function for criteriaOption
       addCriteriaChar(special);
     }
 
-    // user picks no criteria run program again
+    // if user picks no criteriaOption run program again
     if (criteriaTotal === 0) {
       window.alert("You much pick at least 1 criteria option, please try again.");
       generatePassword();
     }
   }
-  // user clicked cancel ending generatePassword() function
+  // if user clicked cancel ending generatePassword() function
   else {
     passwordText = "User clicked cancel! If you would like to try again click the Generate Password Button!";
+    return passwordText;
   }
 
-  // add rest of char to my password
+  // add rest of char to my passwordArray converts into a string then shuffle
   addOverflowChar();
 
-  // debugger;
-  // convert my array into a string then random the string
-  // suffle(passwordArray);
-  passwordText = passwordArray.join("");
-  
-
-  
   return passwordText;
 }
 
