@@ -1,26 +1,10 @@
 // Assignment code here
 
-// GIVEN I need a new, secure password
-// WHEN I click the button to generate a password
-// THEN I am presented with a series of prompts for password criteria
-// WHEN prompted for password criteria
-// THEN I select which criteria to include in the password
-// WHEN prompted for the length of the password
-// THEN I choose a length of at least 8 characters and no more than 128 characters
-// WHEN prompted for character types to include in the password
-// THEN I choose lowercase, uppercase, numeric, and/or special characters
-// WHEN I answer each prompt
-// THEN my input should be validated and at least one character type should be selected
-// WHEN all prompts are answered
-// THEN a password is generated that matches the selected criteria
-// WHEN the password is generated
-// THEN the password is either displayed in an alert or written to the page
-
 // inital setup for strings to include into password generator
 var lowercase = "abcdefghijklmnopqrstuvwxyz";
 var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numeric = "0123456789";
-var special = "!$^&*-=+_?";
+var special = "!#$%&'()*+,-./:;<=>?@[]^_`{}|~";
 
 // Global setup for the passward variables
 var criteriaTotal = 0;
@@ -52,7 +36,6 @@ var addOverflowChar = function() {
     // push char to passwordArray
     passwordArray.push(character);
   }
-  debugger;
   // randomize the passwordArray
   passwordArray.sort(() => Math.random() - 0.5);
   // convert passwordArray into a string
@@ -66,10 +49,9 @@ var generatePassword = function() {
   passwordText = "";
   possibilities = "";
 
-  // debugger;
-
   // ask how long your password will be
   passwordLength = (window.prompt("How many characters do you want in your password? Password length should be at least 8 but no more then 128."));
+  
   // Check if prompt is not null or clicked cancel
   if (passwordLength !== null) {
     // convert passwordLength into a integer
@@ -79,6 +61,7 @@ var generatePassword = function() {
       window.alert("Your password length needs to be between 8 and 128 characters long. Please try again.");
       generatePassword();
     }
+
     // ask if they would like lowercase char
     var confirmLower = window.confirm("Would you like your password to include 'Lowercase' characters?");
     // if lowercase true
