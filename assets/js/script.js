@@ -96,8 +96,8 @@ var generatePassword = function() {
 
     // if user picks no criteriaOption run program again
     if (criteriaTotal === 0) {
-      window.alert("You much pick at least 1 criteria option, please try again.");
-      generatePassword();
+      passwordText = "You must pick at least 1 criteria option, please try again. Click the Generate Password Button to try again."
+      return passwordText;
     }
   }
   // if user clicked cancel ending generatePassword() function
