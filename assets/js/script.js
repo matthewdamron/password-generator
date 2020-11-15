@@ -25,18 +25,34 @@ var special = "!$^&*-=+_?";
 var criteriaTotal = 0;
 // var criteriaLower;
 var criteriaText = [];
-
+var passwordLength;
 var character = "";
 
+// function to add at lease 1 criteria char
 var addCriteriaChar = function(criteriaOption) {
-  // debugger;
+  // random char from the list of criteria optoin
   character = criteriaOption.charAt(Math.floor(Math.random() * criteriaOption.length));
+  // push char to password array
   criteriaText.push(character);
+}
+
+// function to add rest of the char to password length
+var addOverflowChar = function() {
+  // string concat all the possibilities together
+  var possible = lowercase.concat(uppercase, numeric, special);
+  // get the number of char left after adding criteria char
+  var passwordOverflow = passwordLength - criteriaTotal;
+  // for loop to random pick char from the possibilities
+  for (var i = 0; i < passwordOverflow; i++) {
+    character = possible.charAt(Math.floor(Math.random() * possible.length));
+    // push char to password array
+    criteriaText.push(character);
+  }
 }
 
 var generatePassword = function() {
   // ask how long your password will be
-  var passwordLength = (window.prompt("How many characters do you want in your password? Password length should be at least 8 but no more then 128."));
+  passwordLength = (window.prompt("How many characters do you want in your password? Password length should be at least 8 but no more then 128."));
   // Check if prompt is not null or clicked cancel
   if (passwordLength !== null) {
     // convert passwordLength into a integer
@@ -90,14 +106,15 @@ var generatePassword = function() {
       window.alert("You much pick at least 1 criteria option, please try again.");
       generatePassword();
     }
-
-
   }
   // user clicked cancel ending generatePassword() function
   else {
     passwordText = "User clicked cancel! If you would like to try again click the Generate Password Button!";
   }
+
   debugger;
+  // add rest of char to my password
+  addOverflowChar();
 
   passwordText = criteriaText;
   return passwordText;
