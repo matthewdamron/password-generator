@@ -24,8 +24,9 @@ var special = "!$^&*-=+_?";
 
 var criteriaTotal = 0;
 // var criteriaLower;
-var criteriaText = [];
-var passwordLength;
+var passwordArray = [];
+var passwordText = "";
+var passwordLength = 0;
 var character = "";
 
 // function to add at lease 1 criteria char
@@ -33,7 +34,7 @@ var addCriteriaChar = function(criteriaOption) {
   // random char from the list of criteria optoin
   character = criteriaOption.charAt(Math.floor(Math.random() * criteriaOption.length));
   // push char to password array
-  criteriaText.push(character);
+  passwordArray.push(character);
 }
 
 // function to add rest of the char to password length
@@ -46,14 +47,35 @@ var addOverflowChar = function() {
   for (var i = 0; i < passwordOverflow; i++) {
     character = possible.charAt(Math.floor(Math.random() * possible.length));
     // push char to password array
-    criteriaText.push(character);
+    passwordArray.push(character);
   }
 }
+
+var suffle = function (array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 
 var generatePassword = function() {
   // ask how long your password will be
   passwordLength = (window.prompt("How many characters do you want in your password? Password length should be at least 8 but no more then 128."));
   // Check if prompt is not null or clicked cancel
+  debugger;
   if (passwordLength !== null) {
     // convert passwordLength into a integer
     passwordLength = parseInt(passwordLength);
@@ -112,11 +134,16 @@ var generatePassword = function() {
     passwordText = "User clicked cancel! If you would like to try again click the Generate Password Button!";
   }
 
-  debugger;
   // add rest of char to my password
   addOverflowChar();
 
-  passwordText = criteriaText;
+  // debugger;
+  // convert my array into a string then random the string
+  suffle(passwordArray);
+  passwordText = passwordArray.join("");
+  
+
+  
   return passwordText;
 }
 
