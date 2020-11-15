@@ -23,11 +23,20 @@ var numeric = "0123456789";
 var special = "!$^&*-=+_?";
 
 var criteriaTotal = 0;
-var criteriaLower;
+// var criteriaLower;
+var criteriaText = [];
+
+var character = "";
+
+var addCriteriaChar = function(criteriaOption) {
+  // debugger;
+  character = criteriaOption.charAt(Math.floor(Math.random() * criteriaOption.length));
+  criteriaText.push(character);
+}
 
 var generatePassword = function() {
   // ask how long your password will be
-  var passwordLength = (window.prompt("How many characters do you want in your password? Password length should be at least 8 but no more then 128 long."));
+  var passwordLength = (window.prompt("How many characters do you want in your password? Password length should be at least 8 but no more then 128."));
   // Check if prompt is not null or clicked cancel
   if (passwordLength !== null) {
     // convert passwordLength into a integer
@@ -43,43 +52,43 @@ var generatePassword = function() {
     if (confirmLower) {
       // plus one to criteriaTotal
       criteriaTotal++;
-      criteriaLower = true;
+      // add 1 char to my array for password
+      addCriteriaChar(lowercase);
     }
-    else {
-      criteriaLower = false;
-    }
+
     // ask if they would like uppercase char
     var confirmUpper = window.confirm("Would you like your password to include 'Uppercase' characters?");
     // if uppercase true
     if (confirmUpper) {
       // plus one to criteriaTotal
       criteriaTotal++;
-      criteriaUpper = true;
+      // add 1 char to my array for password
+      addCriteriaChar(uppercase);
     }
-    else {
-      criteriaUpper = false;
-    }
+
     // ask if they would like numeric char
     var confirmNumeric = window.confirm("Would you like your password to include 'Numeric' characters?");
     // if numeric true
     if (confirmNumeric) {
       // plus one to criteriaTotal
       criteriaTotal++;
-      criteriaNumeric = true;
+      // add 1 char to my array for password
+      addCriteriaChar(numeric);
     }
-    else {
-      criteriaNumeric = false;
-    }
+
     // ask if they would like special char
     var confirmSpecial = window.confirm("Would you like your password to include 'Special' characters?");
     // if special true
     if (confirmSpecial) {
       // plus one to criteriaTotal
       criteriaTotal++;
-      criteriaSpecial = true;
+      addCriteriaChar(special);
     }
-    else {
-      criteriaSpecial = false;
+
+    // user picks no criteria run program again
+    if (criteriaTotal === 0) {
+      window.alert("You much pick at least 1 criteria option, please try again.");
+      generatePassword();
     }
 
 
@@ -88,7 +97,9 @@ var generatePassword = function() {
   else {
     passwordText = "User clicked cancel! If you would like to try again click the Generate Password Button!";
   }
- debugger;
+  debugger;
+
+  passwordText = criteriaText;
   return passwordText;
 }
 
