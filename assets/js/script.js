@@ -22,18 +22,20 @@ var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numeric = "0123456789";
 var special = "!$^&*-=+_?";
 
+// Global setup for the passward variables
 var criteriaTotal = 0;
-// var criteriaLower;
 var passwordArray = [];
 var passwordText = "";
-var passwordLength = 0;
+var passwordLength;
 var character = "";
 
 // function to add at lease 1 criteria char
 var addCriteriaChar = function(criteriaOption) {
-  // random char from the list of criteria optoin
+  // add one to the criteriaTotal
+  criteriaTotal++;
+  // random char from the list of criteriaOptoin
   character = criteriaOption.charAt(Math.floor(Math.random() * criteriaOption.length));
-  // push char to password array
+  // push char to passwordArray
   passwordArray.push(character);
 }
 
@@ -51,31 +53,37 @@ var addOverflowChar = function() {
   }
 }
 
-var suffle = function (array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+// var suffle = function (array) {
+//   var currentIndex = array.length, temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
+//   // While there remain elements to shuffle...
+//   while (0 !== currentIndex) {
 
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
+//     // Pick a remaining element...
+//     randomIndex = Math.floor(Math.random() * currentIndex);
+//     currentIndex -= 1;
 
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
+//     // And swap it with the current element.
+//     temporaryValue = array[currentIndex];
+//     array[currentIndex] = array[randomIndex];
+//     array[randomIndex] = temporaryValue;
+//   }
 
-  return array;
-}
+//   return array;
+// }
 
 
 var generatePassword = function() {
+  // empty the password variables
+  criteriaTotal = 0;
+  passwordArray = [];
+  passwordText = "";
+
+  // debugger;
+
   // ask how long your password will be
   passwordLength = (window.prompt("How many characters do you want in your password? Password length should be at least 8 but no more then 128."));
   // Check if prompt is not null or clicked cancel
-  debugger;
   if (passwordLength !== null) {
     // convert passwordLength into a integer
     passwordLength = parseInt(passwordLength);
@@ -89,9 +97,9 @@ var generatePassword = function() {
     // if lowercase true
     if (confirmLower) {
       // plus one to criteriaTotal
-      criteriaTotal++;
+      // criteriaTotal++;
       // add 1 char to my array for password
-      addCriteriaChar(lowercase);
+      addCriteriaChar(lowercase, criteriaTotal);
     }
 
     // ask if they would like uppercase char
@@ -99,7 +107,7 @@ var generatePassword = function() {
     // if uppercase true
     if (confirmUpper) {
       // plus one to criteriaTotal
-      criteriaTotal++;
+      // criteriaTotal++;
       // add 1 char to my array for password
       addCriteriaChar(uppercase);
     }
@@ -109,7 +117,7 @@ var generatePassword = function() {
     // if numeric true
     if (confirmNumeric) {
       // plus one to criteriaTotal
-      criteriaTotal++;
+      // criteriaTotal++;
       // add 1 char to my array for password
       addCriteriaChar(numeric);
     }
@@ -119,7 +127,7 @@ var generatePassword = function() {
     // if special true
     if (confirmSpecial) {
       // plus one to criteriaTotal
-      criteriaTotal++;
+      // criteriaTotal++;
       addCriteriaChar(special);
     }
 
@@ -139,7 +147,7 @@ var generatePassword = function() {
 
   // debugger;
   // convert my array into a string then random the string
-  suffle(passwordArray);
+  // suffle(passwordArray);
   passwordText = passwordArray.join("");
   
 
