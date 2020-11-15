@@ -28,11 +28,14 @@ var passwordArray = [];
 var passwordText = "";
 var passwordLength;
 var character = "";
+var possibilities = "";
 
 // function to add at lease 1 criteria char
 var addCriteriaChar = function(criteriaOption) {
   // add one to the criteriaTotal
   criteriaTotal++;
+  // add criteria to possibilities
+  possibilities = possibilities.concat(criteriaOption);
   // random char from the list of criteriaOptoin
   character = criteriaOption.charAt(Math.floor(Math.random() * criteriaOption.length));
   // push char to passwordArray
@@ -42,12 +45,12 @@ var addCriteriaChar = function(criteriaOption) {
 // function to add rest of the char to password length
 var addOverflowChar = function() {
   // string concat all the possibilities together
-  var possible = lowercase.concat(uppercase, numeric, special);
+  // possibilities = lowercase.concat(uppercase, numeric, special);
   // get the number of char left after adding criteria char
   var passwordOverflow = passwordLength - criteriaTotal;
   // for loop to random pick char from the possibilities
   for (var i = 0; i < passwordOverflow; i++) {
-    character = possible.charAt(Math.floor(Math.random() * possible.length));
+    character = possibilities.charAt(Math.floor(Math.random() * possibilities.length));
     // push char to password array
     passwordArray.push(character);
   }
@@ -78,6 +81,7 @@ var generatePassword = function() {
   criteriaTotal = 0;
   passwordArray = [];
   passwordText = "";
+  possibilities = "";
 
   // debugger;
 
